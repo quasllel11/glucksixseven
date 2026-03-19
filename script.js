@@ -5,7 +5,7 @@ const CONFIG = {
   rulesUrl: "https://example.com/rules.pdf",
   registerUrl: "https://forms.gle/9JXuXTXPVzs4Ew3S8",
   teamsUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTMDQmzIQJ75duIP6UM-NohDdaZ0a-PMlGbQcNq1BpYCf2DczoAJWR883Qmtdlvmm279fWXy0JFD0M5/pubhtml?gid=190520418&single=true",
-  twitchUrl: "https://twitch.tv/gluck_esportsl",
+  twitchUrl: "https://twitch.tv/gluck_esports",
   hltvUrl: "https://www.hltv.org/event/your-event",
   tgUrl: "https://t.me/gluck_es"
 };
@@ -44,14 +44,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // optional: open twitch in new window with focus
   const twitchBtn = document.getElementById('btn-twitch');
   if (twitchBtn) twitchBtn.addEventListener('click', (e) => {
-    // default behavior is fine; this is just a hook for analytics
+    // hook for analytics if needed
   });
+
+  // auto-open section by hash (e.g., #qualifiers)
+  const hash = window.location.hash.replace('#','');
+  if (hash) {
+    const el = document.getElementById(hash);
+    if (el && el.tagName === 'DETAILS') {
+      el.open = true;
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  }
 
   // simple animated particles background (lightweight)
   initParticles();
 });
 
-// Лёгкая анимация точек на фоне
+// Лёгкая анимация точек на фоне (тот же код, что был)
 function initParticles(){
   const container = document.getElementById('bg-canvas');
   if (!container) return;
