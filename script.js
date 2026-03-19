@@ -7,27 +7,24 @@ const CONFIG = {
   teamsUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTMDQmzIQJ75duIP6UM-NohDdaZ0a-PMlGbQcNq1BpYCf2DczoAJWR883Qmtdlvmm279fWXy0JFD0M5/pubhtml?gid=190520418&single=true",
   twitchUrl: "https://twitch.tv/gluck_esports",
   hltvUrl: "https://www.hltv.org/event/your-event",
-  tgUrl: "https://t.me/gluck_es"
+  tgUrl: "https://t.me/+96MfsKYpHrIxNWEy"
 };
 
-// Применяем конфиг к элементам
 document.addEventListener('DOMContentLoaded', () => {
   // logo
   const logo = document.getElementById('tournament-logo');
   if (logo) logo.src = CONFIG.logoPath;
 
   // year
-  document.getElementById('year').textContent = new Date().getFullYear();
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // links
   const map = [
     ['link-rules', CONFIG.rulesUrl],
-    ['link-rules-2', CONFIG.rulesUrl],
     ['link-register', CONFIG.registerUrl],
-    ['link-register-2', CONFIG.registerUrl],
     ['btn-register', CONFIG.registerUrl],
     ['btn-teams', CONFIG.teamsUrl],
-    ['link-teams-2', CONFIG.teamsUrl],
     ['btn-twitch', CONFIG.twitchUrl],
     ['btn-hltv', CONFIG.hltvUrl],
     ['btn-tg', CONFIG.tgUrl],
@@ -35,33 +32,25 @@ document.addEventListener('DOMContentLoaded', () => {
     ['footer-hltv', CONFIG.hltvUrl],
     ['footer-tg', CONFIG.tgUrl]
   ];
-
   map.forEach(([id, url]) => {
     const el = document.getElementById(id);
     if (el) el.href = url;
   });
 
-  // optional: open twitch in new window with focus
-  const twitchBtn = document.getElementById('btn-twitch');
-  if (twitchBtn) twitchBtn.addEventListener('click', (e) => {
-    // hook for analytics if needed
-  });
-
-  // auto-open section by hash (e.g., #qualifiers)
+  // auto-open section by hash (e.g., #qualifiers or #prize)
   const hash = window.location.hash.replace('#','');
   if (hash) {
     const el = document.getElementById(hash);
     if (el && el.tagName === 'DETAILS') {
       el.open = true;
-      el.scrollIntoView({behavior:'smooth', block:'center'});
+      setTimeout(()=> el.scrollIntoView({behavior:'smooth', block:'center'}), 200);
     }
   }
 
-  // simple animated particles background (lightweight)
   initParticles();
 });
 
-// Лёгкая анимация точек на фоне (тот же код, что был)
+// Лёгкая анимация точек на фоне (умеренная яркость, не затемняет низ)
 function initParticles(){
   const container = document.getElementById('bg-canvas');
   if (!container) return;
@@ -78,13 +67,14 @@ function initParticles(){
     h = canvas.height = container.clientHeight;
   });
 
-  const particles = Array.from({length: 28}).map(()=>({
+  const particles = Array.from({length: 26}).map(()=>({
     x: Math.random()*w,
     y: Math.random()*h,
-    r: 0.6 + Math.random()*2.4,
-    vx: (Math.random()-0.5)*0.2,
-    vy: (Math.random()-0.5)*0.2,
-    hue: 200 + Math.random()*60
+    r: 0.6 + Math.random()*2.2,
+    vx: (Math.random()-0.5)*0.25,
+    vy: (Math.random()-0.5)*0.25,
+    hue: 200 + Math.random()*60,
+    alpha: 0.06 + Math.random()*0.08
   }));
 
   function draw(){
@@ -92,16 +82,16 @@ function initParticles(){
     particles.forEach(p=>{
       p.x += p.vx;
       p.y += p.vy;
-      if (p.x < -10) p.x = w+10;
-      if (p.x > w+10) p.x = -10;
-      if (p.y < -10) p.y = h+10;
-      if (p.y > h+10) p.y = -10;
-      ctx.beginPath();
-      const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*8);
-      g.addColorStop(0, `hsla(${p.hue},90%,60%,0.12)`);
+      if (p.x < -20) p.x = w+20;
+      if (p.x > w+20) p.x = -20;
+      if (p.y < -20) p.y = h+20;
+      if (p.y > h+20) p.y = -20;
+      const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*10);
+      g.addColorStop(0, `hsla(${p.hue},90%,60%,${p.alpha})`);
       g.addColorStop(1, `hsla(${p.hue},90%,60%,0)`);
       ctx.fillStyle = g;
-      ctx.arc(p.x,p.y,p.r*6,0,Math.PI*2);
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*8,0,Math.PI*2);
       ctx.fill();
     });
     requestAnimationFrame(draw);
