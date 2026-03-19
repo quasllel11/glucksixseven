@@ -89,3 +89,54 @@ body{
 @media (max-width:880px){
   .info-grid{grid-template-columns:1fr}
 }
+/* Page entrance animation */
+body {
+  /* уже есть фон; добавляем начальное состояние для анимации */
+  --page-opacity: 0;
+  --page-translate: 8px;
+  transition: none;
+  opacity: 0;
+  transform: translateY(var(--page-translate));
+}
+
+/* Когда класс is-loaded добавлен — плавно показываем страницу */
+body.is-loaded {
+  transition: opacity 600ms cubic-bezier(.2,.9,.2,1), transform 600ms cubic-bezier(.2,.9,.2,1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Стаггер для основных блоков: заголовок, hero, info-grid */
+.header-inner,
+.hero-inner,
+.info-section .info-grid,
+.site-footer {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+/* Когда страница загружена — поочерёдно показываем элементы */
+body.is-loaded .header-inner { transition-delay: 120ms; opacity:1; transform:translateY(0); }
+body.is-loaded .hero-inner   { transition-delay: 220ms; opacity:1; transform:translateY(0); }
+body.is-loaded .info-section .info-grid { transition-delay: 320ms; opacity:1; transform:translateY(0); }
+body.is-loaded .site-footer  { transition-delay: 420ms; opacity:1; transform:translateY(0); }
+
+/* Стаггер для карточек внутри сетки — плавное появление с задержкой по индексу */
+.info-grid .info-card {
+  opacity: 0;
+  transform: translateY(8px) scale(0.995);
+  transition: opacity 480ms cubic-bezier(.2,.9,.2,1), transform 480ms cubic-bezier(.2,.9,.2,1), box-shadow 240ms ease;
+}
+
+/* при загрузке — применяем задержки через CSS переменную, которую установит JS */
+body.is-loaded .info-grid .info-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* если нужен hover эффект после загрузки */
+.info-card.open, .info-card:hover { box-shadow: 0 14px 50px rgba(2,8,23,0.55); transform: translateY(-4px) scale(1.002); transition: transform 220ms ease, box-shadow 220ms ease; }
+
+/* Убедимся, что скрытые детали не ломают анимацию */
+details[open] > .content { /* content уже прокручиваемый */ }
