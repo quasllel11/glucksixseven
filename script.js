@@ -1,13 +1,13 @@
 // Конфигурация — замените ссылки и логотип здесь
 const CONFIG = {
   tournamentName: "GLuck SixSeven",
-  logoPath: "assets/logo.png",
+  logoPath: "logo.png",
   rulesUrl: "https://example.com/rules.pdf",
-  registerUrl: "https://example.com/register",
-  teamsUrl: "https://example.com/teams",
-  twitchUrl: "https://twitch.tv/yourchannel",
+  registerUrl: "https://forms.gle/9JXuXTXPVzs4Ew3S8",
+  teamsUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTMDQmzIQJ75duIP6UM-NohDdaZ0a-PMlGbQcNq1BpYCf2DczoAJWR883Qmtdlvmm279fWXy0JFD0M5/pubhtml?gid=190520418&single=true",
+  twitchUrl: "https://twitch.tv/gluck_esportsl",
   hltvUrl: "https://www.hltv.org/event/your-event",
-  tgUrl: "https://t.me/yourchannel"
+  tgUrl: "https://t.me/gluck_es"
 };
 
 // Применяем конфиг к элементам
