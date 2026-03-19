@@ -1,39 +1,46 @@
 :root{
-  --bg:#07070b;
+  --bg-top:#04102a;
+  --bg-bottom:#030417;
   --card:#0f1720;
   --accent1:#00a8ff;
   --accent2:#4b6cff;
   --muted:#9aa6b2;
   --glass: rgba(255,255,255,0.03);
-  --radius:14px;
+  --radius:12px;
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color-scheme: dark;
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
-  background:linear-gradient(180deg,#05060a 0%, #071026 60%);
+  min-height:100vh;
+  background: linear-gradient(180deg,var(--bg-top) 0%, #071026 40%, var(--bg-bottom) 100%);
   color:#e6eef8;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   overflow-x:hidden;
+  position:relative;
 }
 
-/* background canvas container */
+/* background canvas container (behind everything) */
 #bg-canvas{
   position:fixed;
   inset:0;
   z-index:0;
   pointer-events:none;
-  background: radial-gradient(ellipse at 10% 10%, rgba(75,108,255,0.08), transparent 10%),
-              radial-gradient(ellipse at 90% 90%, rgba(0,168,255,0.06), transparent 10%);
-  mix-blend-mode:screen;
+  background: radial-gradient(ellipse at 10% 10%, rgba(75,108,255,0.06), transparent 12%),
+              radial-gradient(ellipse at 90% 80%, rgba(0,168,255,0.04), transparent 12%);
+  mix-blend-mode: screen;
 }
+
+/* page wrapper above canvas */
+.page{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column}
 
 /* layout */
 .container{max-width:1100px;margin:0 auto;padding:24px}
-.site-header{position:relative;z-index:5;padding:18px 0}
+.site-header{padding:18px 0}
 .header-inner{display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:14px}
 .brand img{width:64px;height:64px;object-fit:contain;border-radius:8px}
@@ -48,10 +55,10 @@ body{
 .btn-cta{background:linear-gradient(90deg,var(--accent2),var(--accent1));color:#fff;padding:12px 20px;border-radius:12px}
 
 /* hero */
-.hero{padding:60px 0;position:relative;z-index:3}
-.hero-inner{display:flex;gap:32px;align-items:center}
+.hero{padding:40px 0 20px 0}
+.hero-inner{display:flex;gap:32px;align-items:flex-start}
 .hero-left{flex:1;max-width:640px}
-.hero-title{font-size:44px;margin:0 0 12px 0;line-height:1.02}
+.hero-title{font-size:40px;margin:0 0 12px 0;line-height:1.02}
 .hero-lead{color:var(--muted);margin-bottom:18px}
 .cta-row{display:flex;gap:12px;margin-bottom:14px}
 .links-row{display:flex;gap:10px;align-items:center}
@@ -67,68 +74,39 @@ body{
 .card-info{color:var(--muted);font-size:14px;line-height:1.5}
 .card-graphic{width:100%;margin-top:12px;opacity:0.95;filter:drop-shadow(0 8px 30px rgba(75,108,255,0.12))}
 
-/* details */
-.details{padding:36px 24px}
-.details h2{margin:0 0 18px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-.box{background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
-.box h3{margin:0 0 8px 0}
-.box p{color:var(--muted);margin:0 0 12px 0}
+/* info section */
+.info-section{padding:18px 24px 48px 24px}
+.info-section h2{margin:0 0 18px 0}
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.info-card{background:var(--card);padding:0;border-radius:12px;border:1px solid rgba(255,255,255,0.02);overflow:hidden}
+.info-card.wide{grid-column:1 / -1}
 
-/* footer */
-.site-footer{padding:18px 0;border-top:1px solid rgba(255,255,255,0.02);margin-top:36px}
-.footer-inner{display:flex;justify-content:space-between;align-items:center;color:var(--muted)}
-
-/* responsive */
-@media (max-width:880px){
-  .hero-inner{flex-direction:column;align-items:flex-start}
-  .hero-right{width:100%}
-  .brand img{width:52px;height:52px}
-  .hero-title{font-size:32px}
-/* (вставьте весь предыдущий styles.css; ниже — дополнительные правила для аккордеона) */
-}
-/* Аккордеон */
-.info-accordion {
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-  border: 1px solid rgba(255,255,255,0.02);
-  border-radius: 12px;
-  margin-bottom: 12px;
-  padding: 12px 14px;
-  transition: transform .12s ease, box-shadow .12s ease;
-}
-.info-accordion[open]{
-  box-shadow: 0 8px 30px rgba(11,20,40,0.45);
-  transform: translateY(-2px);
-}
-.info-accordion summary{
-  list-style:none;
-  cursor:pointer;
-  outline:none;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  font-size:16px;
-  font-weight:700;
-  color:#eaf4ff;
-}
+/* accordion */
+.info-accordion{padding:14px 16px;transition:transform .12s ease,box-shadow .12s ease;background:transparent;border:none}
+.info-accordion[open]{box-shadow:0 10px 30px rgba(2,8,23,0.6);transform:translateY(-4px)}
+.info-accordion summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:16px;font-weight:700;color:#eaf4ff}
 .info-accordion summary::-webkit-details-marker{display:none}
-.info-accordion .content{
-  margin-top:10px;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.6;
-}
+.info-accordion .content{margin-top:12px;color:var(--muted);font-size:14px;line-height:1.6;padding-bottom:6px}
 .info-accordion .content ul{margin:0;padding-left:18px}
 .info-accordion .content li{margin-bottom:8px}
 
-/* Иконка стрелки */
-.info-accordion summary::after{
-  content: "▾";
-  font-size:18px;
-  color:var(--accent1);
-  transition: transform .18s ease;
-}
-.info-accordion[open] summary::after{
-  transform: rotate(180deg);
+/* prize table */
+.prize-table{width:100%;border-collapse:collapse;margin-top:8px}
+.prize-table th, .prize-table td{padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.03);color:#e6eef8}
+.prize-table thead th{color:var(--muted);font-weight:700}
+
+/* footer */
+.site-footer{margin-top:auto;padding:18px 0;border-top:1px solid rgba(255,255,255,0.02);background:transparent}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;color:var(--muted)}
+
+/* focus styles */
+a:focus, button:focus, summary:focus{outline:3px solid rgba(75,108,255,0.18);outline-offset:3px;border-radius:8px}
+
+/* responsive */
+@media (max-width:880px){
+  .hero-inner{flex-direction:column}
+  .hero-right{width:100%}
+  .info-grid{grid-template-columns:1fr}
+  .brand img{width:52px;height:52px}
+  .hero-title{font-size:28px}
 }
