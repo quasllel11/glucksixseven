@@ -4,171 +4,174 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>GLuck SixSeven — Турнир CS2</title>
-  <meta name="description" content="GLuck SixSeven — турнир по CS2." />
-  <link rel="icon" href="assets/favicon.png" />
+  <meta name="description" content="GLuck SixSeven — турнир по CS2. Регистрация, регламент, трансляция и список команд." />
+  <link rel="icon" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="bg-canvas"></div>
+  <div id="bg-canvas" aria-hidden="true"></div>
 
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand">
-        <img id="tournament-logo" src="assets/logo.png" alt="GLuck SixSeven logo" />
-        <div class="brand-text">
-          <div class="title">GLuck SixSeven</div>
-          <div class="subtitle">SEASON 1 — 6–7 АПРЕЛЯ</div>
-        </div>
-      </div>
-      <nav class="top-links">
-        <a id="link-rules" class="link" href="#" target="_blank" rel="noopener">Регламент</a>
-        <a id="link-register" class="btn btn-primary" href="#" target="_blank" rel="noopener">Регистрация</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="hero">
-    <div class="container hero-inner">
-      <div class="hero-left">
-        <h1 class="hero-title">GLuck SixSeven — Турнир по CS2</h1>
-        <p class="hero-lead">VRS рейтинг | 6–7 апреля | Призовой фонд и трансляция</p>
-
-        <div class="cta-row">
-          <a id="btn-register" class="btn btn-cta" href="#" target="_blank" rel="noopener">Зарегистрироваться</a>
-          <a id="btn-teams" class="btn btn-outline" href="#" target="_blank" rel="noopener">Список команд</a>
-        </div>
-
-        <div class="links-row">
-          <a id="btn-twitch" class="social twitch" href="#" target="_blank" rel="noopener">Смотреть на Twitch</a>
-          <a id="btn-hltv" class="social hltv" href="#" target="_blank" rel="noopener">HLTV</a>
-          <a id="btn-tg" class="social tg" href="#" target="_blank" rel="noopener">Telegram</a>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <div class="card event-card">
-          <div class="card-date">6–7 АПРЕЛЯ</div>
-          <div class="card-info">
-            <div><strong>Формат:</strong> 5v5, VRS рейтинг</div>
-            <div><strong>Регистрация:</strong> до 23 марта</div>
-            <div><strong>Трансляция:</strong> Twitch</div>
+  <div class="page" role="document">
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <img id="tournament-logo" src="logo.png" alt="GLuck SixSeven logo" />
+          <div class="brand-text">
+            <div class="title">GLuck SixSeven</div>
+            <div class="subtitle">SEASON 1 — 6–7 АПРЕЛЯ 2026</div>
           </div>
-          <img class="card-graphic" src="assets/logo.png" alt="GLuck SixSeven" />
+        </div>
+        <nav class="top-links" aria-label="Главные ссылки">
+          <a id="link-rules" class="link" href="#" target="_blank" rel="noopener">Регламент</a>
+          <a id="link-register" class="btn btn-primary" href="#" target="_blank" rel="noopener">Регистрация</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="hero" id="top">
+      <div class="container hero-inner">
+        <section class="hero-left" aria-labelledby="hero-title">
+          <h1 id="hero-title" class="hero-title">GLuck SixSeven — Турнир по CS2</h1>
+          <p class="hero-lead">VRS рейтинг | 6–7 апреля | LAN в Москве | Открытая квалификация на FACEIT</p>
+
+          <div class="cta-row">
+            <a id="btn-register" class="btn btn-cta" href="#" target="_blank" rel="noopener">Зарегистрироваться</a>
+            <a id="btn-teams" class="btn btn-outline" href="#" target="_blank" rel="noopener">Список команд</a>
+          </div>
+
+          <div class="links-row">
+            <a id="btn-twitch" class="social twitch" href="#" target="_blank" rel="noopener">Twitch</a>
+            <a id="btn-hltv" class="social hltv" href="#" target="_blank" rel="noopener">HLTV</a>
+            <a id="btn-tg" class="social tg" href="#" target="_blank" rel="noopener">Telegram</a>
+          </div>
+        </section>
+
+        <aside class="hero-right" aria-labelledby="event-card-title">
+          <div class="card event-card" id="event-card">
+            <div class="card-date">6–7 АПРЕЛЯ</div>
+            <div class="card-info">
+              <div><strong>Формат:</strong> 5v5, VRS рейтинг</div>
+              <div><strong>Регистрация:</strong> 13–23 Марта, 2026</div>
+              <div><strong>Трансляция:</strong> Twitch</div>
+            </div>
+            <img class="card-graphic" src="logo.png" alt="GLuck SixSeven" />
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <section class="info-section container" aria-label="Подробная информация">
+      <h2>Подробности турнира</h2>
+
+      <div class="info-grid">
+        <!-- Time & Location -->
+        <article class="info-card">
+          <details id="time-location" class="info-accordion" open>
+            <summary><strong>Time & Location</strong></summary>
+            <div class="content">
+              <ul>
+                <li><strong>Основная стадия (LAN):</strong> 6–7 Апреля, 2026 — Москва, Россия</li>
+                <li><strong>Открытая квалификация:</strong> 26–27 Марта, 2026 — онлайн (FACEIT)</li>
+                <li><strong>Внимание:</strong> Travel & accommodation не включены; организатор не помогает с визами.</li>
+              </ul>
+            </div>
+          </details>
+        </article>
+
+        <!-- Setup & Gear -->
+        <article class="info-card">
+          <details id="setup-gear" class="info-accordion">
+            <summary><strong>Setup & Gear</strong></summary>
+            <div class="content">
+              <ul>
+                <li>CPU: RYZEN 9800×3D</li>
+                <li>GPU: NVIDIA RTX 5070 Ti</li>
+                <li>RAM: 32GB DDR5 5600MHz</li>
+                <li>Monitor: BenQ ZOWIE 400Hz</li>
+                <li>Headset: Acezone</li>
+                <li>Desks: Electric adjustable</li>
+              </ul>
+            </div>
+          </details>
+        </article>
+
+        <!-- Upcoming Tournaments -->
+        <article class="info-card">
+          <details id="upcoming" class="info-accordion">
+            <summary><strong>Upcoming Tournaments</strong></summary>
+            <div class="content">
+              <ol class="upcoming-list">
+                <li>
+                  <strong>BC Game Masters Championship</strong><br>
+                  Mar 24 - 26 • UPCOMING • $50,000 • LAN
+                </li>
+                <li>
+                  <strong>BC Game Masters Season 2 Series 1</strong><br>
+                  Apr 27 - May 10 • UPCOMING • $50,000 • Online
+                </li>
+              </ol>
+            </div>
+          </details>
+        </article>
+
+        <!-- Prize Distribution -->
+        <article class="info-card">
+          <details id="prize" class="info-accordion">
+            <summary><strong>Призовой фонд и распределение</strong></summary>
+            <div class="content">
+              <p>Призовой фонд формируется за счёт вступительных взносов. <strong>75%</strong> взносов идут в призовой фонд.</p>
+              <table class="prize-table" role="table" aria-label="Распределение призового фонда">
+                <thead>
+                  <tr><th>Место</th><th>Доля</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>1 место</td><td>45%</td></tr>
+                  <tr><td>2 место</td><td>30%</td></tr>
+                  <tr><td>3 место</td><td>15%</td></tr>
+                  <tr><td>4 место</td><td>5%</td></tr>
+                  <tr><td>5–6 места</td><td>2.5% каждая</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </article>
+
+        <!-- Tournament Info -->
+        <article class="info-card wide">
+          <details id="tournament-info" class="info-accordion">
+            <summary><strong>Информация о турнире</strong></summary>
+            <div class="content">
+              <ul>
+                <li><strong>Без VRS-инвайтов и вайлдкардов</strong> — зарегистрироваться может любая команда из Global Region согласно регламенту Valve.</li>
+                <li><strong>Открытая квалификация:</strong> Регистрация 13–23 Марта, 2026; даты 26–27 Марта; формат Double Elimination; платформа FACEIT; серверы: Москва, Германия, Финляндия.</li>
+                <li><strong>Вступительный взнос:</strong> $400 с команды из 5 человек. Методы оплаты: Банковский перевод, СБП, Криптовалюта. Оплата подтверждает регистрацию — у вас 24 часа на оплату после получения ссылки.</li>
+                <li><strong>Квоты:</strong> ТОП 4 VRS команды из регистрации получают прямую квоту в основной этап (LAN).</li>
+                <li><strong>Основная стадия (LAN):</strong> 8 команд; Double Elimination Best-of-3; визовый статус — Russian Federation.</li>
+                <li><strong>Посев:</strong> по официальному VRS-рейтингу, опубликованному в Марте.</li>
+                <li><strong>Подтверждение участия:</strong> команды должны подтвердить участие до 1 апреля; иначе место передаётся следующей команде из квалификации.</li>
+                <li><strong>Отказ в участии:</strong> GLuck Esports оставляет за собой право отказать команде/игроку с действующим VAC-баном или известными нарушениями.</li>
+                <li><strong>Полный регламент:</strong> будет предоставлен не позднее чем за две недели до мероприятия.</li>
+                <li><strong>Вступительный взнос не возвращается.</strong></li>
+              </ul>
+            </div>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> GLuck SixSeven</div>
+        <div class="footer-links">
+          <a id="footer-twitch" href="#" target="_blank" rel="noopener">Twitch</a>
+          <a id="footer-hltv" href="#" target="_blank" rel="noopener">HLTV</a>
+          <a id="footer-tg" href="#" target="_blank" rel="noopener">Telegram</a>
         </div>
       </div>
-    </div>
-  </main>
-
-  <section class="details container">
-    <h2>Информация о турнире</h2>
-
-    <details id="overview" class="info-accordion" open>
-      <summary><strong>Обзор</strong></summary>
-      <div class="content">
-        <ul>
-          <li><strong>Без VRS-инвайтов и вайлдкардов</strong> — зарегистрироваться может любая команда из Global Region согласно официальному регламенту Valve.</li>
-          <li><strong>Основная стадия</strong> — Double Elimination пройдет на LAN в Москве, Россия.</li>
-          <li><strong>Открытая квалификация</strong> — Double Elimination пройдет ОНЛАЙН на FACEIT.</li>
-          <li><strong>ТОП 4 VRS команды</strong> из регистрации будут напрямую включены в основной этап (LAN).</li>
-        </ul>
-      </div>
-    </details>
-
-    <details id="format" class="info-accordion">
-      <summary><strong>Формат турнира</strong></summary>
-      <div class="content">
-        <p><strong>Открытая квалификация:</strong> Онлайн (FACEIT).<br>
-           <strong>Основная стадия:</strong> Офлайн, LAN в Москве, Россия.</p>
-      </div>
-    </details>
-
-    <details id="qualifiers" class="info-accordion">
-      <summary><strong>Открытая квалификация — подробности</strong></summary>
-      <div class="content">
-        <ul>
-          <li><strong>Период регистрации:</strong> 13–23 Марта, 2026.</li>
-          <li><strong>Даты проведения:</strong> 26–27 Марта, 2026.</li>
-          <li><strong>Количество команд:</strong> не ограничено.</li>
-          <li><strong>Формат регистрации:</strong> first-come, first-served.</li>
-          <li><strong>Вступительный взнос:</strong> $400 с команды из 5 человек.</li>
-          <li><strong>Методы оплаты:</strong> Банковский перевод; СБП; Криптовалюта.</li>
-          <li><strong>Формат турнира:</strong> Double Elimination.</li>
-          <li><strong>Квоты:</strong> ТОП 4 VRS команды из регистрации получают квоту в Основной стадии.</li>
-          <li><strong>Отбор из квалификации:</strong> 4 команды пройдут в основной этап.</li>
-          <li><strong>Посев:</strong> Команды с актуальным VRS-рейтингом получают более высокий посев.</li>
-          <li><strong>Платформа:</strong> FACEIT. Локации серверов: Москва, Германия, Финляндия.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details id="main-stage" class="info-accordion">
-      <summary><strong>Основная стадия (LAN) — подробности</strong></summary>
-      <div class="content">
-        <ul>
-          <li><strong>Даты проведения:</strong> 6–7 Апреля, 2026.</li>
-          <li><strong>Количество команд:</strong> 8.</li>
-          <li><strong>Формат:</strong> Double Elimination, Best-of-3.</li>
-          <li><strong>Виза:</strong> Russian Federation (организатор не помогает с визами).</li>
-        </ul>
-      </div>
-    </details>
-
-    <details id="additional" class="info-accordion">
-      <summary><strong>Дополнительная информация</strong></summary>
-      <div class="content">
-        <ul>
-          <li>Посев будет произведен согласно официальному VRS-рейтингу, опубликованному в Марте.</li>
-          <li>Топ 4 VRS команды из регистрации определяются согласно VRS-рейтингу, опубликованному в Марте.</li>
-          <li>После подачи официальной заявки HLTV.org определит, какие этапы и матчи будут учитываться в рейтинге VRS. Статус не гарантируется до подтверждения.</li>
-          <li>Открытие регистрации: <strong>13 Марта, 2026 в 17:00 MSK</strong>. Закрытие: <strong>23 Марта, 2026 в 23:59 MSK</strong>.</li>
-          <li>GLuck Esports оставляет за собой право отказать в участии любой команде/игроку с действующим VAC-баном или известными нарушениями правил.</li>
-          <li>Полный свод правил будет предоставлен всем участникам не позднее чем за две недели до мероприятия.</li>
-          <li>Вступительный взнос не возвращается.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details id="prize" class="info-accordion">
-      <summary><strong>Призовой фонд и распределение</strong></summary>
-      <div class="content">
-        <p>Призовой фонд формируется за счёт вступительных взносов. <strong>75%</strong> взносов идут в призовой фонд.</p>
-        <ul>
-          <li><strong>1 место</strong> — 45%</li>
-          <li><strong>2 место</strong> — 30%</li>
-          <li><strong>3 место</strong> — 15%</li>
-          <li><strong>4 место</strong> — 5%</li>
-          <li><strong>5–6 места</strong> — 2.5% каждая</li>
-        </ul>
-      </div>
-    </details>
-
-    <details id="important" class="info-accordion">
-      <summary><strong>Важная информация</strong></summary>
-      <div class="content">
-        <ul>
-          <li>От каждой организации может участвовать только одна команда.</li>
-          <li>Организатор не предоставляет помощь в организации поездки или получении визы.</li>
-          <li>Команды должны подтвердить участие до <strong>1 апреля</strong>. Иначе место передаётся следующей команде из квалификации.</li>
-          <li>Регистрация считается действительной только после завершения оплаты. После получения ссылки на оплату у вас есть <strong>24 часа</strong> для завершения платежа.</li>
-        </ul>
-      </div>
-    </details>
-
-  </section>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>© <span id="year"></span> GLuck SixSeven</div>
-      <div class="footer-links">
-        <a id="footer-twitch" href="#" target="_blank" rel="noopener">Twitch</a>
-        <a id="footer-hltv" href="#" target="_blank" rel="noopener">HLTV</a>
-        <a id="footer-tg" href="#" target="_blank" rel="noopener">Telegram</a>
-      </div>
-    </div>
-  </footer>
+    </footer>
+  </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-
