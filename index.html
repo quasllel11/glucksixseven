@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GLuck SixSeven — Турнир CS2</title>
+  <meta name="description" content="GLuck SixSeven — турнир по CS2. Регистрация, регламент, трансляция и список команд." />
+  <link rel="icon" href="assets/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="bg-canvas"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img id="tournament-logo" src="assets/logo.png" alt="GLuck SixSeven logo" />
+        <div class="brand-text">
+          <div class="title">GLuck SixSeven</div>
+          <div class="subtitle">SEASON 1 — 6–7 АПРЕЛЯ</div>
+        </div>
+      </div>
+      <nav class="top-links">
+        <a id="link-rules" class="link" href="#" target="_blank" rel="noopener">Регламент</a>
+        <a id="link-register" class="btn btn-primary" href="#" target="_blank" rel="noopener">Регистрация</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="hero">
+    <div class="container hero-inner">
+      <div class="hero-left">
+        <h1 class="hero-title">GLuck SixSeven — Турнир по CS2</h1>
+        <p class="hero-lead">VRS рейтинг | 6–7 апреля | Призовой фонд и трансляция</p>
+
+        <div class="cta-row">
+          <a id="btn-register" class="btn btn-cta" href="#" target="_blank" rel="noopener">Зарегистрироваться</a>
+          <a id="btn-teams" class="btn btn-outline" href="#" target="_blank" rel="noopener">Список команд</a>
+        </div>
+
+        <div class="links-row">
+          <a id="btn-twitch" class="social twitch" href="#" target="_blank" rel="noopener">Смотреть на Twitch</a>
+          <a id="btn-hltv" class="social hltv" href="#" target="_blank" rel="noopener">HLTV</a>
+          <a id="btn-tg" class="social tg" href="#" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="card event-card">
+          <div class="card-date">6–7 АПРЕЛЯ</div>
+          <div class="card-info">
+            <div><strong>Формат:</strong> 5v5, VRS рейтинг</div>
+            <div><strong>Регистрация:</strong> до 4 апреля</div>
+            <div><strong>Трансляция:</strong> Twitch</div>
+          </div>
+          <img class="card-graphic" src="assets/logo.png" alt="GLuck SixSeven" />
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="details container">
+    <h2>Информация</h2>
+    <div class="grid">
+      <div class="box">
+        <h3>Регламент</h3>
+        <p>Весь регламент турнира доступен по ссылке. Формат матчей, правила, дисквалификации и пр.</p>
+        <a id="link-rules-2" class="link" href="#" target="_blank" rel="noopener">Открыть регламент</a>
+      </div>
+      <div class="box">
+        <h3>Регистрация команд</h3>
+        <p>Заполните форму регистрации. Укажите состав, контакт и VRS.</p>
+        <a id="link-register-2" class="btn btn-primary" href="#" target="_blank" rel="noopener">Регистрация</a>
+      </div>
+      <div class="box">
+        <h3>Список команд</h3>
+        <p>Просмотр зарегистрировавшихся команд и их статусов.</p>
+        <a id="link-teams-2" class="link" href="#" target="_blank" rel="noopener">Смотреть команды</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> GLuck SixSeven</div>
+      <div class="footer-links">
+        <a id="footer-twitch" href="#" target="_blank" rel="noopener">Twitch</a>
+        <a id="footer-hltv" href="#" target="_blank" rel="noopener">HLTV</a>
+        <a id="footer-tg" href="#" target="_blank" rel="noopener">Telegram</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
