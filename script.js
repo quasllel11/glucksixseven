@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el) el.href = url;
   });
 
-  // auto-open section by hash (e.g., #qualifiers or #prize)
+  // авто-раскрытие по хешу
   const hash = window.location.hash.replace('#','');
   if (hash) {
     const el = document.getElementById(hash);
@@ -47,16 +47,85 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // инициализация фона и выравнивания карточек
   initParticles();
+  equalizeCardHeights();
+
+  // пересчитываем при ресайзе и при изменении состояния details
+  window.addEventListener('resize', debounce(equalizeCardHeights, 150));
+  document.querySelectorAll('details').forEach(d=>{
+    d.addEventListener('toggle', () => {
+      // добавляем класс для визуального эффекта
+      const card = d.closest('.info-card');
+      if (card) card.classList.toggle('open', d.open);
+      // пересчитываем высоты после анимации открытия
+      setTimeout(equalizeCardHeights, 220);
+    });
+  });
 });
 
-// Лёгкая анимация точек на фоне (умеренная яркость, не затемняет низ)
+/* Выравниваем высоту всех карточек по максимальной высоте содержимого.
+   Подход: измеряем полную высоту карточки (summary + content.scrollHeight) для каждого,
+   затем устанавливаем min-height для всех карточек равной максимуму.
+*/
+function equalizeCardHeights(){
+  const cards = Array.from(document.querySelectorAll('.info-card'));
+  if (!cards.length) return;
+
+  // сбросим временно min-height, чтобы измерить естественные размеры
+  cards.forEach(c => c.style.minHeight = '');
+
+  // вычисляем требуемую высоту для каждой карточки
+  let maxH = 0;
+  cards.forEach(c => {
+    const details = c.querySelector('details');
+    if (!details) return;
+    const summary = details.querySelector('summary');
+    const content = details.querySelector('.content');
+
+    // высота summary
+    const summaryH = summary ? summary.getBoundingClientRect().height : 0;
+    // высота содержимого (scrollHeight учитывает скрытое содержимое)
+    const contentH = content ? content.scrollHeight : 0;
+    // padding/бордер карточки
+    const style = window.getComputedStyle(c);
+    const padTop = parseFloat(style.paddingTop) || 0;
+    const padBottom = parseFloat(style.paddingBottom) || 0;
+    const total = summaryH + contentH + padTop + padBottom;
+    if (total > maxH) maxH = total;
+  });
+
+  // ограничение максимальной высоты (чтобы не занимать весь экран на мобильных)
+  const viewportMax = Math.max(window.innerHeight * 0.7, 320);
+  if (maxH > viewportMax) maxH = viewportMax;
+
+  // применяем min-height ко всем карточкам
+  cards.forEach(c => {
+    c.style.minHeight = Math.ceil(maxH) + 'px';
+  });
+}
+
+/* debounce для оптимизации ресайза */
+function debounce(fn, ms){
+  let t;
+  return function(...args){
+    clearTimeout(t);
+    t = setTimeout(()=> fn.apply(this, args), ms);
+  };
+}
+
+/* Лёгкая анимация точек на фоне (умеренная яркость) */
 function initParticles(){
   const container = document.getElementById('bg-canvas');
   if (!container) return;
+  // очистим старые canvas если есть
+  const old = container.querySelector('canvas');
+  if (old) old.remove();
+
   const canvas = document.createElement('canvas');
   canvas.style.position = 'absolute';
   canvas.style.inset = '0';
+  canvas.style.zIndex = '0';
   canvas.width = container.clientWidth;
   canvas.height = container.clientHeight;
   container.appendChild(canvas);
@@ -74,7 +143,7 @@ function initParticles(){
     vx: (Math.random()-0.5)*0.25,
     vy: (Math.random()-0.5)*0.25,
     hue: 200 + Math.random()*60,
-    alpha: 0.06 + Math.random()*0.08
+    alpha: 0.04 + Math.random()*0.06
   }));
 
   function draw(){
