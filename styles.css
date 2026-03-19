@@ -1,6 +1,7 @@
 :root{
   --bg-top:#04102a;
-  --bg-bottom:#030417;
+  --bg-mid:#071026;
+  --bg-bottom:#041022;
   --card:#0f1720;
   --accent1:#00a8ff;
   --accent2:#4b6cff;
@@ -11,12 +12,12 @@
   color-scheme: dark;
 }
 
-*{box-sizing:border-box}
+/* базовые правки для корректного покрытия фоном */
 html,body{height:100%}
 body{
   margin:0;
   min-height:100vh;
-  background: linear-gradient(180deg,var(--bg-top) 0%, #071026 40%, var(--bg-bottom) 100%);
+  background: linear-gradient(180deg,var(--bg-top) 0%, var(--bg-mid) 45%, var(--bg-bottom) 100%);
   color:#e6eef8;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
@@ -24,7 +25,7 @@ body{
   position:relative;
 }
 
-/* background canvas container (behind everything) */
+/* canvas позади, не затемняет контент */
 #bg-canvas{
   position:fixed;
   inset:0;
@@ -35,78 +36,56 @@ body{
   mix-blend-mode: screen;
 }
 
-/* page wrapper above canvas */
+/* страница поверх canvas */
 .page{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column}
 
-/* layout */
+/* контейнеры и сетка */
 .container{max-width:1100px;margin:0 auto;padding:24px}
-.site-header{padding:18px 0}
-.header-inner{display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:14px}
-.brand img{width:64px;height:64px;object-fit:contain;border-radius:8px}
-.brand-text .title{font-weight:800;font-size:18px;letter-spacing:0.6px}
-.brand-text .subtitle{font-size:12px;color:var(--muted);margin-top:2px}
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;align-items:start}
+.info-card{background:var(--card);padding:0;border-radius:12px;border:1px solid rgba(255,255,255,0.02);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .12s ease, transform .12s ease}
 
-.top-links{display:flex;gap:12px;align-items:center}
-.link{color:var(--muted);text-decoration:none;font-weight:600}
-.btn{display:inline-block;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:700}
-.btn-primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff}
-.btn-outline{border:1px solid rgba(255,255,255,0.06);color:#fff;background:transparent;padding:9px 14px}
-.btn-cta{background:linear-gradient(90deg,var(--accent2),var(--accent1));color:#fff;padding:12px 20px;border-radius:12px}
-
-/* hero */
-.hero{padding:40px 0 20px 0}
-.hero-inner{display:flex;gap:32px;align-items:flex-start}
-.hero-left{flex:1;max-width:640px}
-.hero-title{font-size:40px;margin:0 0 12px 0;line-height:1.02}
-.hero-lead{color:var(--muted);margin-bottom:18px}
-.cta-row{display:flex;gap:12px;margin-bottom:14px}
-.links-row{display:flex;gap:10px;align-items:center}
-.social{padding:8px 12px;border-radius:10px;text-decoration:none;color:#fff;font-weight:700}
-.social.twitch{background:#9146ff}
-.social.hltv{background:#2b2b2b}
-.social.tg{background:#2ca6db}
-
-/* card */
-.hero-right{width:320px}
-.event-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:16px;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.03)}
-.card-date{background:linear-gradient(90deg,var(--accent1),var(--accent2));padding:10px;border-radius:10px;font-weight:800;text-align:center;margin-bottom:12px}
-.card-info{color:var(--muted);font-size:14px;line-height:1.5}
-.card-graphic{width:100%;margin-top:12px;opacity:0.95;filter:drop-shadow(0 8px 30px rgba(75,108,255,0.12))}
-
-/* info section */
-.info-section{padding:18px 24px 48px 24px}
-.info-section h2{margin:0 0 18px 0}
-.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.info-card{background:var(--card);padding:0;border-radius:12px;border:1px solid rgba(255,255,255,0.02);overflow:hidden}
-.info-card.wide{grid-column:1 / -1}
-
-/* accordion */
-.info-accordion{padding:14px 16px;transition:transform .12s ease,box-shadow .12s ease;background:transparent;border:none}
-.info-accordion[open]{box-shadow:0 10px 30px rgba(2,8,23,0.6);transform:translateY(-4px)}
+/* фиксируем поведение карточек: одинаковая высота, внутренний скролл */
+.info-card {
+  /* min-height будет устанавливаться скриптом; задаём разумный запас для без-JS */
+  min-height: 260px;
+  max-height: 100%;
+}
+.info-card .info-accordion {
+  padding:14px 16px;
+  background:transparent;
+  border:none;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
 .info-accordion summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:16px;font-weight:700;color:#eaf4ff}
 .info-accordion summary::-webkit-details-marker{display:none}
-.info-accordion .content{margin-top:12px;color:var(--muted);font-size:14px;line-height:1.6;padding-bottom:6px}
-.info-accordion .content ul{margin:0;padding-left:18px}
-.info-accordion .content li{margin-bottom:8px}
 
-/* prize table */
+/* Контейнер содержимого — занимает оставшееся место в карточке и становится прокручиваемым */
+.info-accordion .content {
+  margin-top:12px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
+  overflow:auto;
+  /* важное: flex-рост, чтобы занять доступное пространство */
+  flex: 1 1 auto;
+  padding-right:8px; /* место для скроллбара */
+}
+
+/* плавный скролл внутри карточек */
+.info-accordion .content::-webkit-scrollbar{width:8px}
+.info-accordion .content::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:8px}
+
+/* визуальные эффекты при открытии */
+.info-card.open{box-shadow:0 12px 40px rgba(2,8,23,0.6);transform:translateY(-4px)}
+
+/* таблицы и прочее */
 .prize-table{width:100%;border-collapse:collapse;margin-top:8px}
 .prize-table th, .prize-table td{padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.03);color:#e6eef8}
 .prize-table thead th{color:var(--muted);font-weight:700}
 
-/* footer */
-.site-footer{margin-top:auto;padding:18px 0;border-top:1px solid rgba(255,255,255,0.02);background:transparent}
-.footer-inner{display:flex;justify-content:space-between;align-items:center;color:var(--muted)}
-
-/* focus styles */
-a:focus, button:focus, summary:focus{outline:3px solid rgba(75,108,255,0.18);outline-offset:3px;border-radius:8px}
-
-/* responsive */
+/* адаптив */
 @media (max-width:880px){
-  .hero-inner{flex-direction:column}
-  .hero-right{width:100%}
   .info-grid{grid-template-columns:1fr}
-  .brand img{width:52px;height:52px}
-  .hero-title{font-size:28px}
 }
