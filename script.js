@@ -167,3 +167,28 @@ function initParticles(){
   }
   draw();
 }
+// Вставьте в конец DOMContentLoaded обработчика или внизу файла после initParticles() и equalizeCardHeights()
+
+// Добавляем плавную анимацию открытия страницы и задаём задержки для карточек
+function applyEntranceAnimation() {
+  // Добавляем класс is-loaded на body с небольшой задержкой, чтобы избежать мерцания
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.body.classList.add('is-loaded');
+
+      // Устанавливаем CSS-переменные задержки для карточек по их индексу
+      const cards = Array.from(document.querySelectorAll('.info-grid .info-card'));
+      cards.forEach((card, i) => {
+        const delay = 360 + i * 80; // базовая задержка + шаг (ms)
+        card.style.transitionDelay = `${delay}ms`;
+      });
+    }, 80); // небольшая пауза, чтобы браузер успел отрисовать начальное состояние
+  });
+}
+
+// Вызовем функцию после основных инициализаций
+document.addEventListener('DOMContentLoaded', () => {
+  // ...существующий код...
+  // после initParticles() и equalizeCardHeights()
+  applyEntranceAnimation();
+});
